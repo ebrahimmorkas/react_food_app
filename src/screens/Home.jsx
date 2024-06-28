@@ -25,25 +25,32 @@ export default function Home() {
     loadFoodItems();
   }, [])
 
-console.log(foodItems);
-console.log(foodItems[0]);
+  // console.log(foodItems);
+  // console.log(foodItems[0]);
   return (
     <div>
       <Navbar />
       <Carousel />
-
-{
-  foodItems.length === 0 && foodCategory.length ===0 ? console.log("Empty Array") : (
-    foodCategory.map((category) => {
-      <h2>{category.category}</h2>
+      {/* <h2>{foodCategory[0].category}</h2> */}
       {
-        foodItems.filter(item => item.category == category.category)
-        .map(item => {item.name})
-      }
-    })
-  )
-}
-      
+        foodItems.length === 0 && foodCategory.length === 0 ? console.log("Empty Array") : (
+          foodCategory.map((category) => (
+            <div key={category._id} className="container">
+              <h2>{category.category}</h2>
+              <div className="d-flex flex-wrap">
+                {
+                  foodItems.filter(item => item.CategoryName === category.category)
+                    .map(foodItem => (
+                      // console.log("Hello")
+                      // console.log(foodItem.description);  
+                      // console.log("Hi");                  
+                      <Card key={foodItem._id} details={foodItem} />
+                    ))
+                }
+              </div>
+            </div>
+          ))
+        )}
     </div>
   );
 }
